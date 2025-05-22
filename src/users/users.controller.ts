@@ -7,7 +7,7 @@ export class UserController{
     constructor(private userService: UserService){}
     
     @Get()
-    getUsers():User[]{
+    getUsers(){
         return this.userService.getUsers();
     }
 }
