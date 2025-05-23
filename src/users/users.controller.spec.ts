@@ -6,10 +6,10 @@ describe('UserController test suite',()=>{
     let userController:UserController;
     const mockUserService = {
         getUsers: jest.fn(()=>{
-            return [
+            return Promise.resolve([
                 {id:1,name:'test1',email:'test1@mail.com',password:'password'},
-                {id:1,name:'test2',email:'test2@mail.com',password:'password'}
-            ];
+                {id:2,name:'test2',email:'test2@mail.com',password:'password'}
+            ]);
     })};
     
     beforeEach(async ()=>{
@@ -28,12 +28,12 @@ describe('UserController test suite',()=>{
         expect(userController).toBeDefined();
     });
 
-    it('should return users',()=>{
-        const expected = [
+    it('should return users',async ()=>{
+        const expected = await Promise.resolve([
             {id:1,name:'test1',email:'test1@mail.com',password:'password'},
-            {id:1,name:'test2',email:'test2@mail.com',password:'password'}
-        ];
+            {id:2,name:'test2',email:'test2@mail.com',password:'password'}
+        ]);
         
-        expect(userController.getUsers()).toEqual(expected);
+        expect(await userController.getUsers()).toEqual(expected);
     });
 });
