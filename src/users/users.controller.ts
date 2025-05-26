@@ -8,12 +8,12 @@ export class UserController{
     constructor(private userService: UserService){}
     
     @Get()
-    getUsers(){
+    getUsers():Promise<User[]>{
         return this.userService.getUsers();
     }
 
     @Post()
-    createUser(@Body(new ValidationPipe()) createUserDTO:CreateUserDTO){
+    createUser(@Body(new ValidationPipe()) createUserDTO:CreateUserDTO):Promise<User>{
         return this.userService.createUser(createUserDTO);
     }
 }

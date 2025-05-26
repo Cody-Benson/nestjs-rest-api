@@ -12,7 +12,7 @@ export class UserService {
         return this.usersRepository.find();
     }
 
-    createUser(createUserDTO:CreateUserDTO){
+    createUser(createUserDTO:CreateUserDTO):Promise<User>{
         let userEntity:User = new User();
         userEntity.name = createUserDTO.name;
         userEntity.email = createUserDTO.email;
