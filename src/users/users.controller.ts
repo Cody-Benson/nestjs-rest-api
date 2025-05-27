@@ -17,7 +17,7 @@ export class UserController{
     async getUserById(@Param('id',ParseIntPipe)id:number): Promise< User | null >{
         let user = await this.userService.getUserById(id);
         if(user === null){
-            throw new NotFoundException(`User with id ${id} does not exist`)
+            throw new NotFoundException(`User with id ${id} does not exist`);
         }
         return this.userService.getUserById(id);
     }
@@ -26,7 +26,7 @@ export class UserController{
     async updateUser(@Param('id',ParseIntPipe) id:number,@Body(new ValidationPipe()) updateUserDTO:UpdateUserDTO): Promise<User>{
         let userFound = await this.userService.getUserById(id);
         if(userFound === null){
-            throw new NotFoundException(`User with id ${id} does not exist`)
+            throw new NotFoundException(`User with id ${id} does not exist`);
         }
         return this.userService.updateUser(id,updateUserDTO);
     }
