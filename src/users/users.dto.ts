@@ -8,3 +8,12 @@ export class CreateUserDTO{
     @IsNotEmpty()
     password:string;
 }
+
+export class UpdateUserDTO{
+    @IsString()
+    name:string;
+    @IsEmail()
+    email:string;
+    @IsNotEmpty()
+    password:string;
+}

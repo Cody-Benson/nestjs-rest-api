@@ -1,5 +1,8 @@
-import { CreateUserDTO } from "../../src/users/users.dto";
+import { DeleteResult } from "typeorm";
+import { CreateUserDTO, UpdateUserDTO } from "../../src/users/users.dto";
 import { User } from "../../src/users/users.entity";
+import { NotFoundError } from "rxjs";
+import { NotFoundException } from "@nestjs/common";
 
 export class TestUtil{
     private static DEFAULT_USER:User = {
@@ -14,6 +17,18 @@ export class TestUtil{
         email:"test@mail.com",
         password:"password"
     }
+
+    private static DEFAULT_UPDATE_USER_DTO:UpdateUserDTO = {
+        name:"testupdate",
+        email:"testupdate@mail.com",
+        password:"updatepassword"
+    }
+
+    private static DEFAULT_DELETE_USER_SUCCESS:DeleteResult = {
+        raw:[],
+        affected:1
+    }
+
     constructor(){}
     
     //User entity utils
@@ -52,5 +67,23 @@ export class TestUtil{
         createUserDTO.password = this.DEFAULT_CREATE_USER_DTO.password;
         
         return createUserDTO;
+    }
+
+    static createTestUpdateUserDTO():UpdateUserDTO{
+        let updateUserDTO:UpdateUserDTO = new UpdateUserDTO();
+        updateUserDTO.name = this.DEFAULT_UPDATE_USER_DTO.name;
+        updateUserDTO.email = this.DEFAULT_UPDATE_USER_DTO.email;
+        updateUserDTO.password = this.DEFAULT_UPDATE_USER_DTO.password;
+        
+        return updateUserDTO;
+    }
+
+    //Delete user utils
+    static createDeleteUserSuccess():DeleteResult{
+        let deleteUserSuccess = new DeleteResult();
+        deleteUserSuccess.affected = this.DEFAULT_DELETE_USER_SUCCESS.affected;
+        deleteUserSuccess.raw = this.DEFAULT_DELETE_USER_SUCCESS.raw;
+
+        return deleteUserSuccess;
     }
 }
