@@ -4,6 +4,10 @@ import { User } from "../../src/users/users.entity";
 import { NotFoundError } from "rxjs";
 import { NotFoundException } from "@nestjs/common";
 
+//export function createMock<T>(fields: Partial<T>): T {
+  //return fields as T;
+//}
+
 export class TestUtil{
     private static DEFAULT_USER:User = {
         id:1,

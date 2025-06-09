@@ -1,8 +1,9 @@
-import { Controller,Get, NotFoundException,HttpStatus, Body, ValidationPipe, Post, Param, ParseIntPipe, Delete, Put } from "@nestjs/common";
+import { Controller,Get, NotFoundException,HttpStatus, Body, ValidationPipe, Post, Param, ParseIntPipe, Delete, Put, Req, Res } from "@nestjs/common";
 import { UserService } from './users.service';
 import { User } from "./users.entity";
 import { CreateUserDTO, UpdateUserDTO } from "./users.dto";
 import { DeleteResult } from "typeorm";
+import { Request, Response } from "express";
 
 @Controller('/users')
 export class UserController{
@@ -23,11 +24,14 @@ export class UserController{
     }
 
     @Put(':id')
-    async updateUser(@Param('id',ParseIntPipe) id:number,@Body(new ValidationPipe()) updateUserDTO:UpdateUserDTO): Promise<User>{
+    async updateUser(@Param('id',ParseIntPipe) id:number,@Body(new ValidationPipe()) updateUserDTO:UpdateUserDTO, @Req() req:Request, @Res() res:Response): Promise<User>{
+        
         let userFound = await this.userService.getUserById(id);
         if(userFound === null){
             throw new NotFoundException(`User with id ${id} does not exist`);
         }
+        //res.status(HttpStatus.ACCEPTED).json(await this.userService.updateUser(id,updateUserDTO));
+        //return;
         return this.userService.updateUser(id,updateUserDTO);
     }
 
